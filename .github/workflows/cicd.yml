@@ -36,7 +36,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.KEY }}
         source: "target/*.jar"
-        target: "~/${{ github.repository }}/${{ github.run_number }}"
+        target: "~/deploy/${{ github.repository }}/${{ github.run_number }}"
 
     - name: run remote shells
       uses: appleboy/ssh-action@master
@@ -46,4 +46,9 @@ jobs:
         key: ${{ secrets.KEY }}
         script: |
           mkdir -p ~/apps/zhuge-api
-          cp -r ${{ github.repository }}/${{ github.run_number }}/target/* ~/apps/zhuge-api/
+          mkdir -p ~/logs/zhuge-api
+          rm -rf ~/apps/zhuge-api/*
+          cp -r ~/deploy/${{ github.repository }}/${{ github.run_number }}/target/* ~/apps/zhuge-api/
+          ps ax | grep zhuge-api | grep -v grep | cut -d 'p'  -f 1 | xargs kill -9
+          nohup java -jar ~/apps/zhuge-api/zhuge-api-0.0.1-SNAPSHOT.jar >> ~/logs/zhuge-api/nohup.out &
+          rm -rf ~/deploy/${{ github.repository }}/${{ github.run_number }}
