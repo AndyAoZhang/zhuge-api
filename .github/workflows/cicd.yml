@@ -49,6 +49,6 @@ jobs:
           mkdir -p ~/logs/zhuge-api
           rm -rf ~/apps/zhuge-api/*
           cp -r ~/deploy/${{ github.repository }}/${{ github.run_number }}/target/* ~/apps/zhuge-api/
-          pkill -f zhuge-api
+          pkill -f apps/zhuge-api/zhuge-api
           nohup java -jar ~/apps/zhuge-api/zhuge-api-0.0.1-SNAPSHOT.jar >> ~/logs/zhuge-api/nohup.out &
           rm -rf ~/deploy/${{ github.repository }}/${{ github.run_number }}
