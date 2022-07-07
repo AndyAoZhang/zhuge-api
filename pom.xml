@@ -8,11 +8,11 @@
         <version>2.7.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.zhongup.nvwa</groupId>
-    <artifactId>nvwa-api</artifactId>
+    <groupId>com.zhonghuipro.zhuge</groupId>
+    <artifactId>zhuge-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nvwa-api</name>
-    <description>nvwa-api</description>
+    <name>zhuge-api</name>
+    <description>zhuge-api</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>

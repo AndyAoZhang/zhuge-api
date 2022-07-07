@@ -24,3 +24,26 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B clean package -Dmaven.test.skip=true
+
+    - name: show files
+      run: |
+        ls -a # 查看打包后的目录文件
+
+    - name: copy file via ssh key
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER }}
+        key: ${{ secrets.KEY }}
+        source: "target/*.jar"
+        target: "~/${{ github.repository }}/${{ github.run_number }}"
+
+    - name: run remote shells
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USER}}
+        key: ${{ secrets.KEY }}
+        script: |
+          mkdir -p ~/apps/zhuge-api
+          cp -r ${{ github.repository }}/${{ github.run_number }}/target/* ~/apps/zhuge-api/
