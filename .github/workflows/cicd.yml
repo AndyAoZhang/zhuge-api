@@ -50,4 +50,4 @@ jobs:
           chmod +x deploy/deploy.sh
           app_name=`basename ${{ github.repository }}`
           deploy/deploy.sh ${app_name} test 8080 ${{ github.sha }} ./target
-          rm -rf ~/deploy/${{ github.repository }}/${{ github.run_number }}
+#          rm -rf ~/deploy/${{ github.repository }}/${{ github.run_number }}
