@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class RootController {
     @RequestMapping("/")
     public String rootRequest(){
-        return "Hello, 钟辉教编程";
+        return "Hello, 钟辉教编程 v20220709";
     }
 }
