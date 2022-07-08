@@ -25,7 +25,8 @@ DEPLOY_TAG=$4
 
 TARGET_DIR=$5
 
-
+# tools
+SUPERVISORCTL=supervisorctl
 
 # options
 
@@ -152,7 +153,7 @@ function __deploy(){
     cp -r ${TARGET_DIR}/* ${DIST_DIR}/
 
     echo "9. update supervisorctl"
-    supervisorctl update
+    ${SUPERVISORCTL} update
 
     echo '10. start...'
     __start
