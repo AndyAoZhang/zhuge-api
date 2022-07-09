@@ -94,11 +94,16 @@ function __start(){
 
 function __stop(){
     echo 'begin __stop()!'
-    echo "stop supervisor process: ${APP}"
+
+    num=`supervisorctl status | grep ${APP} | grep RUNNING | wc -l`
+    if [ ${num} -gt 0 ]; then
+        echo "stop supervisor process: ${APP}"
+        ${SUPERVISORCTL} stop ${APP}
+    fi
+
     PID=`ps -ef | grep "${APP_NAME}" | grep -v grep | awk '{print $2}'`
     if [ "${PID}" != "" ]; then
-
-        ${SUPERVISORCTL} stop ${APP}
+        echo "kill ${APP_NAME}"
         kill ${PID}
         sleep 1
     else
