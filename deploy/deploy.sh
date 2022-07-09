@@ -37,6 +37,7 @@ HOME_DIR=~
 APPS_HOME_DIR=${HOME_DIR}/apps
 LOGS_HOME_DIR=${HOME_DIR}/logs
 DEPLOY_DIR=$(dirname "${DEPLOY_SCRIPT}")
+DEPLOY_FILE=$(basename "${DEPLOY_SCRIPT}")
 APP=${APP_NAME}-${APP_PROFILE}-${APP_PORT}
 LOG_DIR=${LOGS_HOME_DIR}/${APP}
 APP_DIR=${APPS_HOME_DIR}/${APP}
@@ -58,14 +59,14 @@ function __checkProfile(){
 __checkProfile
 
 function __start(){
-    echo 'beigin __start()!'
+    echo 'begin __start()!'
     ${SUPERVISORCTL} start ${APP}
 
     k=1
     for k in $(seq 1 20)
     do
         sleep 1
-        PID=`ps -ef | grep " ${APP} " | grep -v grep | awk '{print $2}'`
+        PID=`ps -ef | grep "${APP}" | grep -v grep | awk '{print $2}'`
         if [ "${PID}" != "" ]; then
             break
         fi
@@ -79,12 +80,12 @@ function __start(){
 
     echo 'app is started. wait 10 seconds'
     sleep 10
-    PID=`ps -ef | grep " ${APP} " | grep -v grep | awk '{print $2}'`
+    PID=`ps -ef | grep "${APP}" | grep -v grep | awk '{print $2}'`
     if [ "${PID}" == "" ]; then
         echo 'cannot found process '
         exit 12
     fi
-    num=`ps -ef | grep " ${APP} " | grep -v grep | wc -l`
+    num=`ps -ef | grep "${APP}" | grep -v grep | wc -l`
     if [ ${num} -gt 1 ]; then
         echo "have more than one ${APP} instances!!!"
         exit 13
@@ -95,26 +96,29 @@ function __start(){
 function __stop(){
     echo 'begin __stop()!'
 
-    num=`supervisorctl status | grep ${APP} | grep RUNNING | wc -l`
+    num=`${SUPERVISORCTL} status | grep ${APP} | grep RUNNING | wc -l`
     if [ ${num} -gt 0 ]; then
         echo "stop supervisor process: ${APP}"
         ${SUPERVISORCTL} stop ${APP}
+    else
+        echo "supervisor process is not running"
     fi
 
-    PID=`ps -ef | grep "${APP_NAME}" | grep -v grep | awk '{print $2}'`
+    PID=`ps -ef | grep "${APP_NAME}" | grep -v "${DEPLOY_FILE}" | grep -v grep | awk '{print $2}'`
     ps -ef | grep "${APP_NAME}" | grep -v grep
     if [ "${PID}" != "" ]; then
         echo "kill ${APP_NAME}"
         kill ${PID}
         sleep 1
     else
+        echo "no process. return"
         return
     fi
 
     k=1
     for k in $(seq 1 10)
     do
-        PID=`ps -ef | grep " ${APP} " | grep -v grep | awk '{print $2}'`
+        PID=`ps -ef | grep "${APP_NAME}" | grep -v "${DEPLOY_FILE}" | grep -v grep | awk '{print $2}'`
         if [ "${PID}" = "" ]; then
             break
         fi
