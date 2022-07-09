@@ -33,7 +33,7 @@ SUPERVISORCTL=supervisorctl
 APP_PROFILES="test production"
 
 # dirs
-HOME_DIR=~
+HOME_DIR=/data
 APPS_HOME_DIR=${HOME_DIR}/apps
 LOGS_HOME_DIR=${HOME_DIR}/logs
 DEPLOY_DIR=$(dirname "${DEPLOY_SCRIPT}")
@@ -42,8 +42,9 @@ APP=${APP_NAME}-${APP_PROFILE}-${APP_PORT}
 LOG_DIR=${LOGS_HOME_DIR}/${APP}
 APP_DIR=${APPS_HOME_DIR}/${APP}
 DIST_DIR=${APPS_HOME_DIR}/${APP}/dist
+SUPERVISOR_DIR=${APPS_HOME_DIR}/${APP}/supervisor
 
-NEW_CONF=${APP_DIR}/supervisor.conf
+CONF_FILE=${SUPERVISOR_DIR}/supervisor.conf
 
 function __checkProfile(){
    for PROFILE_OPTION in ${APP_PROFILES}
@@ -150,13 +151,16 @@ function __deploy(){
     cp  ${DEPLOY_DIR}/start.sh ${APP_DIR}/
     chmod +x ${APP_DIR}/start.sh
 
-    echo "5.set up SUPERVISORCTL config ${APP} at ${NEW_CONF}"
-    echo "[program:${APP}]" > "${NEW_CONF}"
-    echo "stopasgroup=true" >> ${NEW_CONF}
-    echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}" >> ${NEW_CONF}
+    echo "5.set up SUPERVISORCTL config ${APP} at ${CONF_FILE}"
+    mkdir -p ${CONF_FILE}
+    echo "[program:${APP}]" > "${CONF_FILE}"
+    echo "stopasgroup=true" >> ${CONF_FILE}
+    echo "user=${USER}" >> ${CONF_FILE}
+    echo "environment=HOME=\"${SUPERVISOR_DIR}\",USER=\"${USER}\"" >> ${CONF_FILE}
+    echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}" >> ${CONF_FILE}
 
     echo 'config content: '
-    cat ${NEW_CONF}
+    cat ${CONF_FILE}
 
     echo "7. make DIST_DIR at ${DIST_DIR}"
     mkdir -p ${DIST_DIR}
