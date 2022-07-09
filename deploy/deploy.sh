@@ -89,6 +89,7 @@ function __deploy(){
     {
       echo "[program:${APP}]"
       echo "stopasgroup=true"
+      echo "autorestart=true"
       echo "user=${USER}"
       echo "environment=HOME=\"${SUPERVISOR_DIR}\",USER=\"${USER}\""
       echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}"
