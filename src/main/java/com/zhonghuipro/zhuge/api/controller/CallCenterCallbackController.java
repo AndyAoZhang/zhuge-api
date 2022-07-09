@@ -32,7 +32,7 @@ public class CallCenterCallbackController {
                 "        \"action_code\": \"411111\",\n" +
                 "        \"extend\": \"111\"\n" +
                 "    }\n" +
-                "}";
+                "}\n";
 //        return getDemoResult(params, call_id, content_type, content);
     }
 
@@ -62,7 +62,7 @@ public class CallCenterCallbackController {
                 "        \"action_code\": \"" + actionCode + "\"," +
                 "        \"action_code_param\": \"" + action_code_param + "\"" +
                 "    }\n" +
-                "}\n";
+                "}";
         logger.info("result: " + result);
         return result;
     }
