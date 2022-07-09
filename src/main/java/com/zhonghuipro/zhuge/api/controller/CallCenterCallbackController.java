@@ -44,7 +44,7 @@ public class CallCenterCallbackController {
                 "    \"code\": 200,\n" +
                 "    \"data\": {\n" +
                 "        \"call_id\": \"" + call_id + "\",\n" +
-                (isCallIn ?"\"record_flag\": true " : "") +
+                (isCallIn ?"\"record_flag\": true," : "") +
                 "        \"action\": \"" + action + "\",\n" +
                 "        \"action_code\": \"" + actionCode + "\"," +
                 "        \"action_code_param\": \"" + action_code_param + "\"" +
