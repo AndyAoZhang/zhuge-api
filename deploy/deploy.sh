@@ -90,6 +90,8 @@ function __deploy(){
       echo "stopasgroup=true"
       echo "autorestart=true"
       echo "user=${USER}"
+      echo "stdout_logfile=${LOG_DIR}/stdout.log"
+      echo "stderr_logfile=${LOG_DIR}/stderr.log"
       echo "environment=HOME=\"${SUPERVISOR_DIR}\",USER=\"${USER}\""
       echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}"
     } > "${CONF_FILE}"
