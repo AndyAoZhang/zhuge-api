@@ -54,4 +54,15 @@ public class CallCenterCallbackController {
         return result;
     }
 
+
+    @RequestMapping("/call/ai/records")
+    public String rootRequest(
+            @RequestParam Map<String, String> params
+    ) {
+        logger.info(params.toString());
+        return "{\n" +
+                "    \"code\": 0,\n" +
+                "    \"msg\": \"成功\"\n" +
+                "}\n";
+    }
 }
