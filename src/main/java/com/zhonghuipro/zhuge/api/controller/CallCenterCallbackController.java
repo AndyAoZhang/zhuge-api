@@ -15,11 +15,11 @@ public class CallCenterCallbackController {
 
     @RequestMapping("/call/ai/result")
     public String rootRequest(
-            @RequestParam Map<String, String> params,
-            @RequestParam String call_id,
-            @RequestParam Long timestamp,
-            @RequestParam String content_type,
-            @RequestParam String content
+//            @RequestParam Map<String, String> params,
+//            @RequestParam String call_id,
+//            @RequestParam Long timestamp,
+//            @RequestParam String content_type,
+//            @RequestParam String content
 
     ) {
         return "{\n" +
