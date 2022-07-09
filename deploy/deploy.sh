@@ -102,6 +102,7 @@ function __stop(){
     fi
 
     PID=`ps -ef | grep "${APP_NAME}" | grep -v grep | awk '{print $2}'`
+    ps -ef | grep "${APP_NAME}" | grep -v grep
     if [ "${PID}" != "" ]; then
         echo "kill ${APP_NAME}"
         kill ${PID}
