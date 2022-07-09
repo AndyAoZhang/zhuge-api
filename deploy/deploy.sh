@@ -86,11 +86,13 @@ function __deploy(){
 
     echo "5.set up SUPERVISORCTL config ${APP} at ${CONF_FILE}"
     mkdir -p ${SUPERVISOR_DIR}
-    echo "[program:${APP}]" > "${CONF_FILE}"
-    echo "stopasgroup=true" >> ${CONF_FILE}
-    echo "user=${USER}" >> ${CONF_FILE}
-    echo "environment=HOME=\"${SUPERVISOR_DIR}\",USER=\"${USER}\"" >> ${CONF_FILE}
-    echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}" >> ${CONF_FILE}
+    {
+      echo "[program:${APP}]"
+      echo "stopasgroup=true"
+      echo "user=${USER}"
+      echo "environment=HOME=\"${SUPERVISOR_DIR}\",USER=\"${USER}\""
+      echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}"
+    } > "${CONF_FILE}"
 
     echo 'config content: '
     cat ${CONF_FILE}
