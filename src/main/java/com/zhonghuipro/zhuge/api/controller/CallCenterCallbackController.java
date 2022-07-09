@@ -29,7 +29,8 @@ public class CallCenterCallbackController {
         String action = "donothing";
         String actionCode = "";
         String action_code_param = "{}";
-        if ("callin".equals(content_type)) {
+        boolean isCallIn = "callin".equals(content_type);
+        if (isCallIn) {
             action = "answer";
         }
         if ("normal".equals(content_type)) {
@@ -43,6 +44,7 @@ public class CallCenterCallbackController {
                 "    \"code\": 200,\n" +
                 "    \"data\": {\n" +
                 "        \"call_id\": \"" + call_id + "\",\n" +
+                (isCallIn ?"\"record_flag\": true " : "") +
                 "        \"action\": \"" + action + "\",\n" +
                 "        \"action_code\": \"" + actionCode + "\"," +
                 "        \"action_code_param\": \"" + action_code_param + "\"" +
