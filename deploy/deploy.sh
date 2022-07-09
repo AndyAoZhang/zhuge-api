@@ -59,43 +59,8 @@ function __checkProfile(){
 
 __checkProfile
 
-function __start(){
-    echo 'begin __start()!'
-    ${SUPERVISORCTL} start ${APP}
-
-    k=1
-    for k in $(seq 1 20)
-    do
-        sleep 1
-        PID=`ps -ef | grep "${APP}" | grep -v grep | awk '{print $2}'`
-        if [ "${PID}" != "" ]; then
-            break
-        fi
-        echo ${k}
-        if [ ${k} -eq 20 ]
-        then
-            echo 'process start time more than 20s, so abort'
-            exit 11
-        fi
-    done
-
-    echo 'app is started. wait 10 seconds'
-    sleep 10
-    PID=`ps -ef | grep "${APP}" | grep -v grep | awk '{print $2}'`
-    if [ "${PID}" == "" ]; then
-        echo 'cannot found process '
-        exit 12
-    fi
-    num=`ps -ef | grep "${APP}" | grep -v grep | wc -l`
-    if [ ${num} -gt 1 ]; then
-        echo "have more than one ${APP} instances!!!"
-        exit 13
-    fi
-    echo 'start successfully !!!'
-}
-
-function __stop(){
-    echo 'begin __stop()!'
+function __deploy(){
+    echo "0. stop service"
 
     num=`${SUPERVISORCTL} status | grep ${APP} | grep RUNNING | wc -l`
     if [ ${num} -gt 0 ]; then
@@ -105,38 +70,6 @@ function __stop(){
         echo "supervisor process is not running"
     fi
 
-    PID=`ps -ef | grep "${APP_NAME}" | grep -v "${DEPLOY_FILE}" | grep -v grep | awk '{print $2}'`
-    ps -ef | grep "${APP_NAME}" | grep -v grep
-    if [ "${PID}" != "" ]; then
-        echo "kill ${APP_NAME}"
-        kill ${PID}
-        sleep 1
-    else
-        echo "no process. return"
-        return
-    fi
-
-    k=1
-    for k in $(seq 1 10)
-    do
-        PID=`ps -ef | grep "${APP_NAME}" | grep -v "${DEPLOY_FILE}" | grep -v grep | awk '{print $2}'`
-        if [ "${PID}" = "" ]; then
-            break
-        fi
-        if [ ${k} -eq 10 ]
-        then
-            echo 'cannot shutdown normally, so use kill -9'
-            kill -9 ${PID}
-            break
-        fi
-        echo "wait ${k} seconds"
-        sleep ${k}
-    done
-}
-
-function __deploy(){
-    echo "0. stop service"
-    __stop
 
     echo "1. make LOG_DIR at ${LOG_DIR}"
     mkdir -p ${LOG_DIR}
@@ -152,7 +85,7 @@ function __deploy(){
     chmod +x ${APP_DIR}/start.sh
 
     echo "5.set up SUPERVISORCTL config ${APP} at ${CONF_FILE}"
-    mkdir -p ${CONF_FILE}
+    mkdir -p ${SUPERVISOR_DIR}
     echo "[program:${APP}]" > "${CONF_FILE}"
     echo "stopasgroup=true" >> ${CONF_FILE}
     echo "user=${USER}" >> ${CONF_FILE}
@@ -172,7 +105,7 @@ function __deploy(){
     ${SUPERVISORCTL} update
 
     echo '10. start...'
-    __start
+    ${SUPERVISORCTL} start ${APP}
 }
 
 __deploy
