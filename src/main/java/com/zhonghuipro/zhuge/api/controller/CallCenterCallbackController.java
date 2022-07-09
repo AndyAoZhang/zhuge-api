@@ -15,28 +15,13 @@ public class CallCenterCallbackController {
 
     @RequestMapping("/call/ai/result")
     public String rootRequest(
-//            @RequestParam Map<String, String> params,
-//            @RequestParam String call_id,
-//            @RequestParam Long timestamp,
-//            @RequestParam String content_type,
-//            @RequestParam String content
+            @RequestParam Map<String, String> params,
+            @RequestParam String call_id,
+            @RequestParam Long timestamp,
+            @RequestParam String content_type,
+            @RequestParam String content
 
     ) {
-        return "{\n" +
-                "    \"result\": \"success\",\n" +
-                "    \"msg\": \"成功\",\n" +
-                "    \"code\": 200,\n" +
-                "    \"data\": {\n" +
-                "        \"call_id\": \"100001616500^100001871490\",\n" +
-                "        \"action\": \"play\",\n" +
-                "        \"action_code\": \"411111\",\n" +
-                "        \"extend\": \"111\"\n" +
-                "    }\n" +
-                "}\n";
-//        return getDemoResult(params, call_id, content_type, content);
-    }
-
-    private String getDemoResult(Map<String, String> params, String call_id, String content_type, String content) {
         logger.info(params.toString());
         logger.info(call_id);
         logger.info(content_type);
@@ -66,4 +51,5 @@ public class CallCenterCallbackController {
         logger.info("result: " + result);
         return result;
     }
+
 }
