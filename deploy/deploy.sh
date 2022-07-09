@@ -152,6 +152,7 @@ function __deploy(){
 
     echo "5.set up SUPERVISORCTL config ${APP} at ${NEW_CONF}"
     echo "[program:${APP}]" > "${NEW_CONF}"
+    echo "stopasgroup=true" >> ${NEW_CONF}
     echo "command=${APP_DIR}/start.sh ${APP_PROFILE} ${APP_PORT} ${DEPLOY_TAG}  ${DIST_DIR}  ${LOG_DIR}" >> ${NEW_CONF}
 
     echo 'config content: '
