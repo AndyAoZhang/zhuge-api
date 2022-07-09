@@ -2,6 +2,7 @@ package com.zhonghuipro.zhuge.api.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,9 +58,9 @@ public class CallCenterCallbackController {
 
     @RequestMapping("/call/ai/records")
     public String rootRequest(
-            @RequestParam Map<String, String> params
+            @RequestBody String records
     ) {
-        logger.info(params.toString());
+        logger.info("records: " + records);
         return "{\n" +
                 "    \"code\": 0,\n" +
                 "    \"msg\": \"成功\"\n" +
