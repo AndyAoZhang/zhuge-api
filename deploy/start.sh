@@ -20,6 +20,8 @@ if [[ $# != 5 ]]; then
 fi
 
 
+echo "run app"
+
 java -Dserver.port=${APP_PORT} -Dlogging.path=${LOG_DIR} -jar ${DIST_DIR}/zhuge-api-0.0.1-SNAPSHOT.jar
 
 echo "done"
