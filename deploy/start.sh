@@ -14,7 +14,7 @@ function __help(){
     exit
 }
 
-if [[ $# != 5 ]]; then
+if [[ $# != 4 ]]; then
     __help
 fi
 
