@@ -38,6 +38,7 @@ public class CallCenterCallbackController {
         }
         if ("normal".equals(content_type)) {
             action = "play";
+            action_code_param = "{\\\"tts\\\":\\\"好的\\\"}";
         }
         String result = "{\n" +
                 "    \"result\": \"success\",\n" +
