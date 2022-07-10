@@ -33,7 +33,7 @@ public class CallCenterCallbackController {
         boolean isCallIn = "callin".equals(content_type);
         if (isCallIn) {
             action = "answer";
-            action_code_param = "{\\\"tts\\\":\\\"您好，我是诸葛。请问有何贵干？\\\"}";
+            action_code_param = "{\\\"tts\\\":\\\"您好，我是钟二。有事请留言。\\\"}";
 //            actionCode = "9bd7634a-9aca-4e5c-8a5b-9bfca7280ff0.wav";
         }
         if ("normal".equals(content_type)) {
