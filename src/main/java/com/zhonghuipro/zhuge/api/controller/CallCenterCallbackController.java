@@ -28,17 +28,16 @@ public class CallCenterCallbackController {
         logger.info(content_type);
         logger.info(content);
         String action = "donothing";
-        String actionCode = "";
+        String actionCode = "$tts$";
         String action_code_param = "{}";
         boolean isCallIn = "callin".equals(content_type);
         if (isCallIn) {
             action = "answer";
-            actionCode = "https://zhuge-call-voice.oss-cn-beijing.aliyuncs.com/start_record.wav";
+            action_code_param = "{\\\"tts\\\":\\\"您好，我是诸葛。请问有何贵干？\\\"}";
+//            actionCode = "9bd7634a-9aca-4e5c-8a5b-9bfca7280ff0.wav";
         }
         if ("normal".equals(content_type)) {
             action = "play";
-            actionCode = "$name$";
-            action_code_param = "{\\\"name\\\":\\\"牛逼\\\"}";
         }
         String result = "{\n" +
                 "    \"result\": \"success\",\n" +
