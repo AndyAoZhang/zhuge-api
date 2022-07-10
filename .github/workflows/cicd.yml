@@ -46,3 +46,16 @@ jobs:
           app_name=`basename ${{ github.repository }}`
           deploy/deploy.sh ${app_name} test ${{ secrets.PORT}} ${{ github.sha }} ./target
           rm -rf ~/deploy/${{ github.repository }}/${{ github.run_number }}
+    - name: notify
+      uses: foxundermoon/feishu-action@v2
+      with:
+        url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
+        msg_type: text
+        content: |
+          text: |
+            发布完成
+            from github action
+            repository: ${{ github.repository }}
+            committer: ${{ github.actor }}
+            compare: ${{ github.event.compare }}
+            job status: ${{ job.status }}
