@@ -33,6 +33,7 @@ public class CallCenterCallbackController {
         boolean isCallIn = "callin".equals(content_type);
         if (isCallIn) {
             action = "answer";
+            actionCode = "http://alicom-fc-record-biz.oss-cn-hangzhou.aliyuncs.com/Freeswitch_ac4e5748-ffa4-11ec-a2e9-69206b587a01_record.wav?Expires=1657989143&OSSAccessKeyId=bypFNbGJVk73PsLI&Signature=PtgFgia6U4%2Bet8Eva8jVdUrh%2B%2Fk%3D";
         }
         if ("normal".equals(content_type)) {
             action = "play";
