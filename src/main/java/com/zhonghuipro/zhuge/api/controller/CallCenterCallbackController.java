@@ -39,7 +39,7 @@ public class CallCenterCallbackController {
 
 
     @RequestMapping("/call/ai/result")
-    public JSONObject rootRequest(
+    public String rootRequest(
             @RequestParam Map<String, String> params,
             @RequestParam(name="call_id") String callId,
             @RequestParam Long timestamp,
@@ -90,7 +90,7 @@ public class CallCenterCallbackController {
         }
         String newDynamicId = getDynamicId(userId, callResponse.getCallStatus());
         messageService.logResponse(callId, newDynamicId, userId, callResponse);
-        return aliService.getAliCallResponse(callId, callResponse);
+        return aliService.getAliCallResponse(callId, callResponse).toString();
 
 
 //        String action = "donothing";

@@ -17,7 +17,7 @@ public class MessageService {
      * @param content 消息内容
      */
     public void logRequest(String callId, String contentType, String content) {
-        logger.info(callId, contentType, content);
+        logger.info(String.format("%s, %s, %s", callId, contentType, content));
         // TODO 实现
     }
 
@@ -29,7 +29,7 @@ public class MessageService {
      * @param callResponse 响应内容
      */
     public void logResponse(String callId, String newDynamicId, Long userId, CallResponse callResponse) {
-        logger.info(callId, newDynamicId, userId, callResponse);
+        logger.info(String.format("%s, %s, %d, %s", callId, newDynamicId, userId, callResponse.toString()));
         // TODO 实现
     }
 }
