@@ -153,4 +153,4 @@ public class CallCenterCallbackController {
 //curl --header "Content-Type: application/json" \
 //        --request POST \
 //        --data '{"username":"xyz","password":"xyz"}' \
-//        http://localhost:3000/api/login
+//        http://localhost:8080/call/ai/result
