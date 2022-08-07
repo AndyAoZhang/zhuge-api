@@ -92,7 +92,7 @@ public class AliService {
             }
             aliCallResponseData.put("action_code", "$tts$");
             JSONObject actionCodeParam = new JSONObject();
-            aliCallResponseData.put("action_code_param", actionCodeParam);
+            aliCallResponseData.put("action_code_param", actionCodeParam.toString());
             actionCodeParam.put("tts", callResponse.getData());
         } catch (JSONException e) {
             e.printStackTrace();
