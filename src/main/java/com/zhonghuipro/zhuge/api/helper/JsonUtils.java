@@ -11,4 +11,15 @@ public class JsonUtils {
         }
     }
 
+    public static String getJsonString(JSONObject jsonObject, String name){
+        if (jsonObject == null){
+            return "";
+        }
+        try {
+            return jsonObject.getString(name);
+        } catch (JSONException e) {
+            return "";
+        }
+    }
+
 }

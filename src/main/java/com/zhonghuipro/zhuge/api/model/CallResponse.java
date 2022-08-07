@@ -8,4 +8,13 @@ public class CallResponse {
     Long requestId;
     String data;
     String callStatus;
+    private boolean isCallIn;
+
+    public void setIsCallIn(boolean isCallIn) {
+        this.isCallIn = isCallIn;
+    }
+
+    public boolean getIsCallIn() {
+        return isCallIn;
+    }
 }
