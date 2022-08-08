@@ -33,6 +33,7 @@ jobs:
         key: ${{ secrets.KEY }}
         source: "deploy,target"
         target: "~/deploy/${{ github.repository }}/${{ github.run_number }}"
+        overwrite: true
 
     - name: run remote shells
       uses: appleboy/ssh-action@master
