@@ -14,7 +14,20 @@ jobs:
 
     runs-on: ubuntu-latest
 
+
     steps:
+    - name: start
+      uses: foxundermoon/feishu-action@v2
+      with:
+        url: ${{ secrets.FEISHU_BOT_WEBHOOK_URL }}
+        msg_type: text
+        content: |
+          text: |
+            ${{ github.repository }} 发布开始 by github
+            committer: ${{ github.actor }}
+            compare: ${{ github.event.compare }}
+            job status: ${{ job.status }}
+
     - uses: actions/checkout@v3
     - name: Set up JDK 8
       uses: actions/setup-java@v3
