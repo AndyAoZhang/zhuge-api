@@ -42,7 +42,7 @@ public class AliService {
         return Constants.REPLY_CONTENT_OTHER;
     }
 
-    public JSONObject getAliCallResponse(String callId, CallResponse callResponse) {
+    public JSONObject getAliCallResponse(String callId, CallResponse callResponse, String newDynamicId) {
 
 //        String action = "donothing";
 //        String actionCode = "$tts$";
@@ -83,6 +83,7 @@ public class AliService {
             JSONObject aliCallResponseData = new JSONObject();
             aliCallResponse.put("data", aliCallResponseData);
             aliCallResponseData.put("call_id", callId);
+            aliCallResponseData.put("dynamic_id", newDynamicId);
             if(callResponse.getIsCallIn()) {
                 aliCallResponseData.put("record_flag", true);
                 aliCallResponseData.put("action", "answer");
@@ -101,18 +102,4 @@ public class AliService {
         return aliCallResponse;
     }
 
-    public static void main(String[] args) {
-        AliService aliService = new AliService();
-        String replyContent = aliService.getReplyContent("mute", "{\"role\": \"B\",\"identity\": \"id2\",\"words\": “跳过\",\"begin_offset\": \"1000\",\"end_offset\": \"9000\",\"begin_time\": \"2017-06-01 10:00:00\"}");
-        System.out.println(replyContent);
-    }
-    public static void test() {
-        AliService aliService = new AliService();
-        CallResponse callResponse = new CallResponse();
-        String callId="1100001616500^10000187****";
-        callResponse.setData("您好啊");
-        JSONObject aliCallResponse = aliService.getAliCallResponse(callId, callResponse);
-        System.out.println(aliCallResponse.toString());
-
-    }
 }

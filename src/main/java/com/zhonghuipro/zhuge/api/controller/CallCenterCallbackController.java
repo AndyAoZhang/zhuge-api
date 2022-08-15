@@ -90,7 +90,7 @@ public class CallCenterCallbackController {
         }
         String newDynamicId = getDynamicId(userId, callResponse.getCallStatus());
         messageService.logResponse(callId, newDynamicId, userId, callResponse);
-        String res = aliService.getAliCallResponse(callId, callResponse).toString();
+        String res = aliService.getAliCallResponse(callId, callResponse, newDynamicId).toString();
         logger.info(res);
         return res;
 
